@@ -1,0 +1,23 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h> //기본 함수 라이브러리
+#include <string.h> //문자열 함수 라이브러리
+
+void ConvertTimeToHMS(int time, int* hour, int* min, int* sec); //함수 선언
+
+void main() { //main문 
+	int time = 0; //time 선언 및 초기화
+	int* hour, min, sec; //포인터 변수 선언
+	printf("시작(초) ?");
+	scanf("%d", &time); //time값 입력
+	ConvertTimeToHMS(time, &hour, &min, &sec); //함수 실행
+
+}
+
+void ConvertTimeToHMS(int time, int* hour, int* min, int* sec) { //함수 정의 - 매개변수로 사용된 포인터 hour, min, sec는 반환값으로 사용 가능
+	//시간 계산
+	*hour = time / 3600; 
+	*min = (time % 3600) / 60;
+	*sec = (time % 3600) % 60;
+	printf("3700초는 %d시간 %d분 %d초 입니다.", *hour, *min, *sec); //결과 출력
+}
