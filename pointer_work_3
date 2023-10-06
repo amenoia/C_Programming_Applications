@@ -1,0 +1,29 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h> //기본 함수 라이브러리
+#include <string.h> //문자열 함수 라이브러리
+
+int sumRangeWithPosition(int* pstart, int* pend);
+
+void main() {
+	int arr[50] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50 };
+	int start = 0, end = 0, result = 0;
+	printf("시작 값과 종료 값을 입력하세요. ");
+	scanf("%d %d", &start, &end);
+	if (start > end) {
+		printf("종료 값은 시작 값 보다 커야합니다.");
+		exit(1);
+	}
+	int* parr = &arr, * pstart = &(arr[start - 1]), * pend = &(arr[end - 1]);
+	result = sumRangeWithPosition(pstart, pend);
+	printf("요소들의 합은 %d 입니다.", result);
+}
+
+int sumRangeWithPosition(int* pstart, int* pend) {
+	int sum = 0;
+	int cnt = (pend - pstart);
+	for (int i = 0; i <= cnt; i++) {
+		sum += *(pstart + i);
+	}
+	return sum;
+}
