@@ -6,11 +6,12 @@
 void ConvertTimeToHMS(int time, int* hour, int* min, int* sec); //함수 선언
 
 void main() { //main문 
-	int time = 0; //time 선언 및 초기화
-	int* hour, min, sec; //포인터 변수 선언
+	int time = 0, hour = 0, min = 0, sec = 0; //time 선언 및 초기화
+	int* phour = &hour, *pmin = &min, *psec = &sec; //포인터 변수 선언
 	printf("시작(초) ?");
 	scanf("%d", &time); //time값 입력
 	ConvertTimeToHMS(time, &hour, &min, &sec); //함수 실행
+	printf("3700초는 %d시간 %d분 %d초 입니다.", *phour, *pmin, *psec); //결과 출력
 
 }
 
@@ -19,5 +20,5 @@ void ConvertTimeToHMS(int time, int* hour, int* min, int* sec) { //함수 정의
 	*hour = time / 3600; 
 	*min = (time % 3600) / 60;
 	*sec = (time % 3600) % 60;
-	printf("3700초는 %d시간 %d분 %d초 입니다.", *hour, *min, *sec); //결과 출력
+	
 }
