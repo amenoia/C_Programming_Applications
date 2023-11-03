@@ -1,0 +1,94 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <math.h>
+
+typedef struct PointT {
+	int x;
+	int y;
+}pointT;
+
+typedef struct lineT {
+	pointT p1;
+	pointT p2;
+	int l;
+}lineT;
+
+void InputPoint(pointT* p, int n);
+lineT InputLine(void);
+double GetLineLength(lineT line);
+
+int main(void) {
+	double length = 0;
+	lineT l;
+
+	l = InputLine();
+
+	length = GetLineLength(l);
+
+	printf("길이는  %lf입니다.", length);
+
+	return 0;
+}
+
+void InputPoint(pointT* p, int n) {
+	int x = 0, y = 0;
+	printf("%d번째 좌표를 입력하세요.\n", n + 1);
+	scanf("%d %d", &x, &y);
+
+	p->x = x;
+	p->y = y;
+	printf("좌표 입력이 완료되었습니다. x : %d , y : %d\n", p->x, p->y);
+}
+
+lineT InputLine(void) {
+	lineT line;
+	
+	int x = 0, y = 0;
+
+	
+	printf("1번째 좌표를 입력하세요.\n");
+	scanf("%d %d", &x, &y);
+
+	line.p1.x = x;
+	line.p1.y = y;
+
+	printf("좌표 입력이 완료되었습니다. x : %d , y : %d\n", line.p1.x, line.p1.y);
+
+	printf("2번째 좌표를 입력하세요.\n");
+	scanf("%d %d", &x, &y);
+
+	line.p2.x = x;
+	line.p2.y = y;
+
+	printf("좌표 입력이 완료되었습니다. x : %d , y : %d\n", line.p2.x, line.p2.y);
+
+	return line;
+}
+
+double GetLineLength(lineT line) {
+	double result = 0;
+
+	int xl = 0, yl = 0;
+
+	if (line.p1.x > line.p2.x) {
+		xl = line.p1.x - line.p2.x;
+	}
+	else {
+		xl = line.p2.x - line.p1.x;
+	}
+
+	if (line.p1.y > line.p2.y) {
+		yl = line.p1.y - line.p2.y;
+	}
+	else {
+		yl = line.p2.y - line.p1.y;
+	}
+
+	xl = xl * xl;
+	yl = yl * yl;
+
+	result = sqrt(xl + yl);
+
+	return result;
+}
