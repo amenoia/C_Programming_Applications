@@ -1,0 +1,49 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+
+typedef struct PointT {
+	int x;
+	int y;
+}pointT;
+
+void InputPoint(pointT* p, int n);
+int IsEquals(pointT p1, pointT p2);
+void ResultPoint (int result);
+
+int main(void) {
+	pointT point[2];
+	int result = 0;
+
+	for (int i = 0; i < 2; i++) {
+		InputPoint(&point[i], i);
+	}
+
+	result = IsEquals(point[0], point[1]);
+	
+	ResultPoint(result);
+
+	return 0;
+}
+
+void InputPoint(pointT* p, int n) {
+	int x = 0, y = 0;
+	printf("%d번째 좌표를 입력하세요.\n", n + 1);
+	scanf("%d %d", &x, &y);
+
+	p->x = x;
+	p->y = y;
+	printf("좌표 입력이 완료되었습니다. x : %d , y : %d\n", p->x, p->y);
+}
+
+int IsEquals(pointT p1, pointT p2) {
+	if(p1.x != p2.x)	return -1;
+	if (p1.y != p2.y)	return -1;
+	return 1;
+}
+
+void ResultPoint(int result) {
+	if (result == 1)	printf("두 좌표는 동일 좌표입니다.\n");
+	else if (result == -1)		printf("두 좌표는 다른 좌표입니다.\n");
+	else	printf("오류 발생\n");
+}
