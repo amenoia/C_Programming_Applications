@@ -1,0 +1,54 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <string.h>
+
+typedef struct personT {
+	char name[20];
+	int phone;
+	char address[50];
+}personT;
+
+personT InputPerson(void);
+void PrintPerson(personT p);
+
+int main(void) {
+	personT p1, p2;
+
+	p1 = InputPerson();
+	p2 = InputPerson();
+
+	PrintPerson(p1);
+	PrintPerson(p2);
+
+	return 0;
+}
+
+personT InputPerson(void) {
+	char name[20];
+	int phone;
+	char address[20];
+
+	personT p;
+
+	printf("이름을 입력하세요.\n");
+	scanf("%s", &name);
+
+	printf("핸드폰 번호를 입력하세요.\n");
+	scanf("%d", &phone);
+
+	printf("주소를 입력하세요.\n");
+	scanf("%s", &address);
+
+	strcpy(p.name, name);
+	p.phone = phone;
+	strcpy(p.address, address);
+
+	return p;
+}
+
+void PrintPerson(personT p) {
+	printf("이름 : %s ", p.name);
+	printf("핸드폰 번호 : %d ", p.phone);
+	printf("주소 : %s ", p.address);
+}
