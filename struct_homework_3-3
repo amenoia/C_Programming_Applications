@@ -1,0 +1,205 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <string.h>
+
+typedef struct personT {
+	char name[20];
+	int phone;
+	char address[50];
+}personT;
+
+void InputPersonlist(personT p[], int n);
+void PrintPersonList(personT p[], int n);
+void PrintAllPersonList(personT p[]);
+void SearchName(personT p[]);
+void AddPerson(personT p[]);
+void ChangePerson(personT p[]);
+void DeletePesron(personT p[]);
+void printui(void);
+
+int main(void) {
+	personT p[10] = { {'\0', 0, '\0'}, };
+	int menu = 0 ,end_flag = 0, person_idx = 0;
+
+	while (1) {
+		printui();
+		printf("메뉴를 선택하세요.");
+		scanf("%d", &menu);
+		switch (menu) {
+		case 1:
+			PrintAllPersonList(p);
+			break;
+		case 2:
+			SearchName(p);
+			break;
+		case 3:
+			AddPerson(p);
+			break;
+		case 4:
+			ChangePerson(p);
+			break;
+		case 5:
+			DeletePesron(p);
+			break;
+		case 6:
+			end_flag = 1;
+			break;
+		default:
+			printf("엄 ㅋㅋ\n");
+			break;
+		}
+
+		if (end_flag)
+			break;
+	}
+
+	return 0;
+}
+
+void DeletePesron(personT p[]) {
+	int n;
+
+	printf("삭제할 연락처 번호를 입력하세요.");
+	scanf("%d", &n);
+
+	if (n < 0 && n > 9) {
+		printf("번호는 0부터 9까지를 입력해야 합니다.\n");
+		return;
+	}
+
+	strcpy(p[n].name, '\0');
+	p[n].phone = 0;
+	strcpy(p[n].address, '\0');
+
+	printf("삭제가 완료되었습니다.\n");
+}
+
+void AddPerson(personT p[]) {
+	int cnt = 0;
+
+	char name[20];
+	int phone;
+	char address[20];
+	for (int i = 0; i < 10; i++) {
+		if (p[i].phone == 0) {
+			printf("이름을 입력하세요.\n");
+			scanf("%s", &name);
+
+			printf("핸드폰 번호를 입력하세요.\n");
+			scanf("%d", &phone);
+
+			printf("주소를 입력하세요.\n");
+			scanf("%s", &address);
+
+			strcpy(p[i].name, name);
+			p[i].phone = phone;
+			strcpy(p[i].address, address);
+
+			break;
+		}
+		else {
+			cnt++;
+		}
+	}
+
+	if (cnt == 10) {
+		printf("연락처에 10명 모두 저장되어 있습니다. 삭제 후 다시 실행시키세요.\n");
+	}
+}
+
+void ChangePerson(personT p[]) {
+	int n;
+
+	printf("바꾸실 연락처 번호를 입력하세요.");
+	scanf("%d", &n);
+
+	if (n < 0 && n > 9) {
+		printf("번호는 0부터 9까지를 입력해야 합니다.\n");
+		return;
+	}
+
+	char name[20];
+	int phone;
+	char address[20];
+
+	printf("이름을 입력하세요.\n");
+	scanf("%s", &name);
+
+	printf("핸드폰 번호를 입력하세요.\n");
+	scanf("%d", &phone);
+
+	printf("주소를 입력하세요.\n");
+	scanf("%s", &address);
+
+	strcpy(p[n].name, name);
+	p[n].phone = phone;
+	strcpy(p[n].address, address);
+}
+
+void printui(void) {
+	printf("1.전체 목록 보기\n");
+	printf("2.이름으로 검색하여 정보보기\n");
+	printf("3.새 연락처 추가하기\n");
+	printf("4.기존 연락처 수정하기\n");
+	printf("5.삭제하기\n");
+	printf("6.종료하기\n");
+
+}
+
+void InputPersonlist(personT p[], int n) {
+	char name[20];
+	int phone;
+	char address[20];
+
+	printf("이름을 입력하세요.\n");
+	scanf("%s", &name);
+
+	printf("핸드폰 번호를 입력하세요.\n");
+	scanf("%d", &phone);
+
+	printf("주소를 입력하세요.\n");
+	scanf("%s", &address);
+
+	strcpy(p[n].name, name);
+	p[n].phone = phone;
+	strcpy(p[n].address, address);
+
+}
+
+void PrintPersonList(personT p[], int n) {
+	printf("이름 : %s ", p[n].name);
+	printf("핸드폰 번호 : +82) %d ", p[n].phone);
+	printf("주소 : %s \n", p[n].address);
+}
+
+void PrintAllPersonList(personT p[]) {
+	for (int i = 0; i < 10; i++) {
+		if (p[i].phone == 0)	break;
+		printf("NO.%d \n", i);
+		printf("이름 : %s ", p[i].name);
+		printf("핸드폰 번호 : +82) %d ", p[i].phone);
+		printf("주소 : %s \n", p[i].address);
+	}
+}
+
+void SearchName(personT p[]) {
+	char name[20];
+	int find_flag = 0;
+	printf("이름을 입력하세요\n");
+	scanf("%s", &name);
+
+	for (int i = 0; i < 10; i++) {
+		if (0 == strcmp(name, p[i].name)) {
+			printf("해당 이름에 해당되는 인물을 찾았습니다. 정보를 출력합니다.\n");
+			printf("이름 : %s ", p[i].name);
+			printf("핸드폰 번호 : %d ", p[i].phone);
+			printf("주소 : %s \n", p[i].address);
+			find_flag = 1;
+			break;
+		}
+	}
+	if(!find_flag){
+		printf("해당 이름에 해당되는 인물이 존재하지 않습니다.\n");
+	}
+}
